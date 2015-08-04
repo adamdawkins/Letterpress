@@ -1,7 +1,12 @@
 dependencies:
+  cache_directories:
+    - "~/.meteor"
+    - "~/.npm"
   override:
+    # Restore the Meteor symlink
+    - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
     # Install Meteor
-    - curl https://install.meteor.com | sh
+    - if [ ! -e ~/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
 
   # Install package dependencies for Cucumber support files
     - npm install --production:
